@@ -6,42 +6,22 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 17:28:22 by swang             #+#    #+#             */
-/*   Updated: 2021/10/28 14:57:09 by swang            ###   ########.fr       */
+/*   Updated: 2021/10/28 16:25:38 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-static int	check_arg(int argc, char *argv[])
+void	free_data(t_data *data, t_philo *philo)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	if (argc < 5 || argc > 6)
-		return (-1);
-	while (argv[i])
-	{
-		j = 0;
-		while (argv[i][j])
-		{
-			if (ft_isdigit(argv[i][j]) == 0)
-				return (-1);
-			j++;
-		}
-		i++;
-	}
-	return (1);
+	//동적할당한거 다 날려줘야함.
+	if (*philo != 0)
+		free(*philo);
+	if (data->fork != 0)
+		free(fork);
 }
 
-static int	malloc_struct(char *argv[], t_data *data, t_philo **philo)
-{
-	*philo = (t_philo *)malloc(sizeof((t_philo) * ft_atoi(argv[1]));
-
-
-}
-
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
 	t_data	data;
 	t_philo	*philo;
@@ -52,12 +32,12 @@ int main(int argc, char *argv[])
 		printf("Usage : ./philo [number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep] [optional : number_of_times_each_philosopher_must_eat]\n");
 		return (-1);
 	}
-	if (malloc_struct(argv[1], &data, &philo) == -1)
+	if (malloc_struct(argv, &data, &philo) == -1)
 	{
 		printf("Failed to malloc.\n");
 		return (-1);
 	}
-	init_data(&data);
+	init_data(argv, &data);
 	init_philo(&data, philo);
 	philosopher(&data, philo);
 	return (0);
