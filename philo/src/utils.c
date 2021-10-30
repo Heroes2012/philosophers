@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:28:32 by swang             #+#    #+#             */
-/*   Updated: 2021/10/30 14:53:03 by swang            ###   ########.fr       */
+/*   Updated: 2021/10/30 20:29:50 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,3 +54,21 @@ int	ft_isdigit(int c)
 	else
 		return (0);
 }
+
+unsigned long	get_time(void)
+{
+	struct	timeval tv;
+	unsigned long	time;
+
+	gettimeofday(&tv, 0);
+	time = tv.tv_sec * 1000; //
+	time += tv.tv_usec / 1000; //
+	return (time);
+}
+
+/*
+
+1초 = 1000ms == 1,000,000us
+
+ms를 기준으로 단위를 환산하면 tv_sec * 1000, tv_usec / 1000
+*/
