@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:31:36 by swang             #+#    #+#             */
-/*   Updated: 2021/10/30 16:11:21 by swang            ###   ########.fr       */
+/*   Updated: 2021/10/30 17:37:52 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 int	grap_the_fork(t_philo *philo)
 {
 	if (pthread_mutex_lock(philo->l_fork) != 0)
+	{
+		printf("19\n");
 		return (-1); //뮤택스 락 에러처리?
+	}
 	if (pthread_mutex_lock(philo->r_fork) != 0)
 	{
+		printf("24\n");
 		pthread_mutex_unlock(philo->l_fork);
 		return (-1);
 	}
-	printf("in grap_the_fork\n");
+	printf("%d is grap_the_fork\n", philo->name);
 	return (0);
 }
 
@@ -35,12 +39,16 @@ int	eat(t_philo *philo)
 {
 	if (grap_the_fork(philo) == -1)
 		return (-1);
-	while (philo->eat_count < philo->data->num_of_must_eat) // 머스트 잇 만큼 다먹으먄
-	{
-		printf("[name: %d] [eat_count: %d]\n", philo->name, philo->eat_count);
-		philo->eat_count++;
-	}
+	printf("%d is eating\n eat_time : %d\n", philo->name, philo->eat_count + 1);
+	philo->eat_count++; //time_to_eat : 먹는시간동안 철학자는 두개의 포크를 소지하고 있어야 한다.
+	if (philo->eat_count == philo->data->num_of_must_eat)
+		(*philo->data->eat_check)++;
+	if (*(philo->data->eat_check) == philo->data->num_of_philo)
+		return (0);
 	drop_the_fork(philo);
+	printf("%d is sleeping\n", philo->name);
+	usleep(philo->data->time_to_sleep);
+	printf("%d is thinking\n", philo->name);
 	return (0);
 }
 
@@ -52,8 +60,14 @@ void	*philo_thread(void *param)
 	//홀수 쓰레드 짝수 쓰레드를 어떻게 구분하지? 필로소퍼 이름,,,(1번필로는 사실 짝수번째 철학자이다)
 	if (philo->name % 2 == 0) //이름이 짝수인사람은 기다려
 		usleep(philo->data->time_to_eat);//얼마나 기다리지? -> 먹는 시간만큼
-	if (eat(philo) == -1)
-		return (0);
+	while (*(philo->data->death_check) < 1)
+	{
+		pthread_mutex_lock(&(philo->data->print));
+		printf("%d's %d, %d\n", philo->name, philo->eat_count, philo->data->num_of_must_eat);
+		pthread_mutex_unlock(&(philo->data->print));
+		if (eat(philo) == -1)
+			return (0);
+	}
 	/*
 	while (philo->eat_count < philo->data->num_of_must_eat) // 죽은사람이 아무도 없을 때
 	{
@@ -70,3 +84,16 @@ void	*philo_thread(void *param)
 	//시간끌어오는 함수 확인하기....
 	return (0);
 }
+
+
+
+
+
+/*
+본인이 must eat	까지 다먹었어도 안먹은 애들이 있을 수 있음
+먼저 다먹은애는 자는거랑 생각하는거 멈추기
+time_to_eat > time_to_sleep 이면 처음에 홀수애들이 두번 먹음
+
+
+//최소먹는 수가 주어지니까 많이먹어도 상관없다.
+*/
