@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 17:16:18 by swang             #+#    #+#             */
-/*   Updated: 2021/10/30 14:57:59 by swang            ###   ########.fr       */
+/*   Updated: 2021/10/30 17:34:06 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				num_of_must_eat;
 	int				*death_check;
+	int				*eat_check;
 	pthread_mutex_t	print;
 	pthread_mutex_t	*fork;
 }	t_data;
