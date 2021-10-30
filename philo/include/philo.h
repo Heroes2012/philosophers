@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 17:16:18 by swang             #+#    #+#             */
-/*   Updated: 2021/10/28 16:50:01 by swang            ###   ########.fr       */
+/*   Updated: 2021/10/30 14:57:59 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_H
 
 # include <stdio.h>
+# include <stdlib.h>
 # include <pthread.h>
 # include <unistd.h>
 
@@ -24,8 +25,8 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_of_must_eat;
-	int				death_check;
-	pthread_mutet_t	print;
+	int				*death_check;
+	pthread_mutex_t	print;
 	pthread_mutex_t	*fork;
 }	t_data;
 
@@ -45,12 +46,12 @@ typedef struct s_philo
 }	t_philo;
 
 /* main */
-int	main(int argc, char *argv[]);
+int		main(int argc, char *argv[]);
 void	free_data(t_data *data, t_philo *philo);
 
 /* init */
-void	init_philo(t_data *data, t_philo *philo);
-void	init_data(char *argv[], t_data *data);
+void	init_philo_struct(t_data *data, t_philo *philo);
+void	init_data_struct(int argc, char *argv[], t_data *data);
 int		check_arg(int argc, char *argv[]);
 int		malloc_struct(char *argv[], t_data *data, t_philo **philo);
 
@@ -58,5 +59,13 @@ int		malloc_struct(char *argv[], t_data *data, t_philo **philo);
 void	philosopher(t_data *data, t_philo *philo);
 
 /* thread */
-void	monitor_thread(void *param);
-void	philo_thread(void *param);
+void	*philo_thread(void *param);
+//void	*monitor_thread(void *param);
+
+/* utils */
+int		ft_atoi(const char *str);
+void	ft_free(t_data *data, t_philo *philo);
+int	ft_isdigit(int c);
+
+
+#endif
