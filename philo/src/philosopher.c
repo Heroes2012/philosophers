@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:03:02 by swang             #+#    #+#             */
-/*   Updated: 2021/10/30 21:21:34 by swang            ###   ########.fr       */
+/*   Updated: 2021/10/31 13:48:51 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	philosopher(t_data *data, t_philo *philo)
 	int	i;
 
 	i = 0;
+	data->strat_time = get_time();
 	while (i < data->num_of_philo)
 	{
 		pthread_create(&(philo[i].thread), NULL, &(philo_thread), &(philo[i]));

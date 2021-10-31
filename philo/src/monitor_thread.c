@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:28:38 by swang             #+#    #+#             */
-/*   Updated: 2021/10/30 21:30:25 by swang            ###   ########.fr       */
+/*   Updated: 2021/10/31 13:55:10 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,49 @@ void	*monitor_thread(void *param)
 	t_philo	*philo;
 
 	philo = (t_philo *)param;
-	// 쓰레드가 죽으몀ㄴ data->death->check 변경하기
-	while (*(philo->data->death_check) == 0)
+	while (*philo->data->death_check == 0)
 	{
+		if (philo->eat_count == philo->data->num_of_must_eat)
+			break ;
 		if (philo->my_death == 0 && get_time() - philo->last_eat > (unsigned long)philo->data->time_to_die)
 		{
-			*philo->data->death_check = 1;
-			philo->
-			printf("%d 죽음\n", philo->name);
-			break;
-			//무조건 굶엇을때만 드렁오는 곳
+			philo->my_death = 1;
+			printf("%lums %d died\n", get_time() - philo->data->strat_time, philo->name);
 		}
+		if (philo->my_death == 1)
+			*philo->data->death_check = 1;
 	}
 	return (0);
-	// 모두 밥을 다 먹었는지 체크(?)
 }
+
+
+/*
+
+다먹으면 먼저 종료됨
+
+내가 먹는동안 다른 애들이 죽었는지 체크하는 법
+내가 먹고나서 다른 애들이 죽었는지 체크하는 법
+내가 자는동안 다른 애들이 죽었는지 체크하는 법
+내가 자고나서 다른 애들이 죽었는지 체크하는 법
+
+//---모니터 쓰레드에서 굶는거는 항시 체크중---//
+내가 대기상태(thinking)일 때 내가 굶었는지 체크하는 법
+내가 대기상태일 때 다른 애들이 굶었는지 체크하는 법
+
+
+
+
+
+
+timestamp_in_ms X has taken a fork
+
+timestamp_in_ms X is eating
+
+timestamp_in_ms X is sleeping
+
+timestamp_in_ms X is thinking
+
+timestamp_in_ms X died
+
+
+*/

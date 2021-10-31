@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 17:16:18 by swang             #+#    #+#             */
-/*   Updated: 2021/10/30 20:30:39 by swang            ###   ########.fr       */
+/*   Updated: 2021/10/31 15:18:55 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ typedef struct s_data
 	int				num_of_must_eat;
 	int				*death_check;
 	int				*eat_check;
-	pthread_mutex_t	print;
+	unsigned long	strat_time;
+	pthread_mutex_t	*print;
 	pthread_mutex_t	*fork;
 }	t_data;
 
@@ -68,8 +69,8 @@ void			*monitor_thread(void *param);
 int				ft_atoi(const char *str);
 int				ft_isdigit(int c);
 void			ft_free(t_data *data, t_philo *philo);
+void			ft_usleep(unsigned long time);
 unsigned long	get_time(void);
-
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:28:32 by swang             #+#    #+#             */
-/*   Updated: 2021/10/30 20:29:50 by swang            ###   ########.fr       */
+/*   Updated: 2021/10/31 15:24:21 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	ft_free(t_data *data, t_philo *philo)
 	if (data->fork == NULL)
 		free(data->fork);
 	if (data->death_check == NULL)
+		free(data->death_check);
+	if (data->print == NULL)
 		free(data->death_check);
 	exit(0);
 }
@@ -65,6 +67,26 @@ unsigned long	get_time(void)
 	time += tv.tv_usec / 1000; //
 	return (time);
 }
+
+void	ft_usleep(unsigned long time)
+{
+	unsigned long	old_time;
+
+	old_time = get_time();
+	while (get_time() < time + old_time)
+	{
+		usleep(100);
+	}
+}
+
+/*
+지금시간 - 아까시간 < 필로가 기다려야하는 시간(슬립/식사시간)
+지금시간 < 200 + 아까시간
+흐른시간 < 자는시간
+흐른시간 < 먹는시간
+*/
+
+// if (philo->my_death == 0 && get_time() - philo->last_eat > (unsigned long)philo->data->time_to_die)
 
 /*
 
