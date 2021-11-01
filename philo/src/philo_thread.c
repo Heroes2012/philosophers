@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:31:36 by swang             #+#    #+#             */
-/*   Updated: 2021/10/31 18:08:12 by swang            ###   ########.fr       */
+/*   Updated: 2021/11/01 14:43:59 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	*only_one(t_philo *philo)
 
 	print_mutex(FORK, philo);
 	tmp_time = get_time();
-	while (*philo->data->death_check == 0 && (get_time() - tmp_time < (unsigned long)philo->data->time_to_die))
-		usleep(10);
+	ft_usleep(philo->data->time_to_die);
 	return (0);
 }
 
