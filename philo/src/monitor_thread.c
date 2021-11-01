@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:28:38 by swang             #+#    #+#             */
-/*   Updated: 2021/10/31 18:06:59 by swang            ###   ########.fr       */
+/*   Updated: 2021/11/01 15:26:47 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*monitor_thread(void *param)
 			pthread_mutex_lock(&(philo->eat));
 			philo->my_death = 1;
 			*philo->data->death_check += 1;
-			print_mutex(DIE, philo);
+			print_mutex(DIE, philo, 0);
 			pthread_mutex_unlock(&(philo->eat));
 		}
 		usleep(10);

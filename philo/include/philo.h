@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 17:16:18 by swang             #+#    #+#             */
-/*   Updated: 2021/10/31 17:22:43 by swang            ###   ########.fr       */
+/*   Updated: 2021/11/01 15:24:44 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define THINK 103
 # define DIE 104
 # define FORK 105
+# define DROP 106
 
 
 # include <stdio.h>
@@ -79,6 +80,6 @@ void			ft_usleep(unsigned long time);
 unsigned long	get_time(void);
 
 /* print_mutex*/
-void	print_mutex(int flag, t_philo *philo);
+void	print_mutex(int flag, t_philo *philo, char c);
 
 #endif
