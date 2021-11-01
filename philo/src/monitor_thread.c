@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:28:38 by swang             #+#    #+#             */
-/*   Updated: 2021/11/01 15:26:47 by swang            ###   ########.fr       */
+/*   Updated: 2021/11/01 19:54:45 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*monitor_thread(void *param)
 			print_mutex(DIE, philo, 0);
 			pthread_mutex_unlock(&(philo->eat));
 		}
-		usleep(10);
+		usleep(100);
 	}
 	return (0);
 }

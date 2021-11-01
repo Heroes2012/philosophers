@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:31:36 by swang             #+#    #+#             */
-/*   Updated: 2021/11/01 15:34:28 by swang            ###   ########.fr       */
+/*   Updated: 2021/11/01 19:57:41 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	grap_the_fork(t_philo *philo)
 
 void	drop_the_fork(t_philo *philo)
 {
-	print_mutex(DROP, philo, 'l');
+	//print_mutex(DROP, philo, 'l');
 	pthread_mutex_unlock(philo->l_fork);
-	print_mutex(DROP, philo, 'r');
+//	print_mutex(DROP, philo, 'r');
 	pthread_mutex_unlock(philo->r_fork);
 }
 
@@ -69,7 +69,7 @@ void	*philo_thread(void *param)
 	t_philo *philo;//여기는 어차피 필로소퍼 각자 들어오는 구역.
 
 	philo = (t_philo *)param;
-
+	
 	if (philo->data->num_of_philo == 1)
 		return (only_one(philo));
 	if (philo->name % 2 == 0) //이름이 짝수인사람은 기다리는데 안기다려지는거 같음...
@@ -85,7 +85,7 @@ void	*philo_thread(void *param)
 		if (*philo->data->death_check == 1)
 			break ;
 		print_mutex(THINK, philo, 0);
-		usleep(10);
+		usleep(100);
 	}
 	//시간끌어오는 함수 확인하기....
 	return (0);
