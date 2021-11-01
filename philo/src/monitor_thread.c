@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:28:38 by swang             #+#    #+#             */
-/*   Updated: 2021/10/31 13:55:10 by swang            ###   ########.fr       */
+/*   Updated: 2021/10/31 18:06:59 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ void	*monitor_thread(void *param)
 		if (philo->eat_count == philo->data->num_of_must_eat)
 			break ;
 		if (philo->my_death == 0 && get_time() - philo->last_eat > (unsigned long)philo->data->time_to_die)
-		{
+  		{
+			pthread_mutex_lock(&(philo->eat));
 			philo->my_death = 1;
-			printf("%lums %d died\n", get_time() - philo->data->strat_time, philo->name);
+			*philo->data->death_check += 1;
+			print_mutex(DIE, philo);
+			pthread_mutex_unlock(&(philo->eat));
 		}
-		if (philo->my_death == 1)
-			*philo->data->death_check = 1;
+		usleep(10);
 	}
 	return (0);
 }
