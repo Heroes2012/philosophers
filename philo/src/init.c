@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 18:20:55 by swang             #+#    #+#             */
-/*   Updated: 2021/10/31 15:25:25 by swang            ###   ########.fr       */
+/*   Updated: 2021/10/31 16:32:10 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,12 @@ void	init_data_struct(int argc, char *argv[], t_data *data)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
-	data->strat_time = 0;
+	data->start_time = 0;
 	if (argc == 6)
 		data->num_of_must_eat = ft_atoi(argv[5]);
 	else
 		data->num_of_must_eat = -42; // 0이면 인자가 들어오지 않은것과 인자를 0을 준것과 헷갈림
 	*(data->death_check) = 0; // 죽었는지 살았는지 스위치 겸..
-	*(data->eat_check) = 0;
 	pthread_mutex_init(data->print, 0);
 	while (count < data->num_of_philo)//철학자 머릿수만큼 포크뮤택스를 만들어야함
 	{
