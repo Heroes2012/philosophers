@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:28:32 by swang             #+#    #+#             */
-/*   Updated: 2021/10/31 15:24:21 by swang            ###   ########.fr       */
+/*   Updated: 2021/10/31 18:12:58 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ void	ft_usleep(unsigned long time)
 	unsigned long	old_time;
 
 	old_time = get_time();
+
 	while (get_time() < time + old_time)
 	{
-		usleep(100);
+		usleep(10);
 	}
 }
 
