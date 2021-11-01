@@ -6,7 +6,7 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 18:20:55 by swang             #+#    #+#             */
-/*   Updated: 2021/10/31 16:32:10 by swang            ###   ########.fr       */
+/*   Updated: 2021/11/01 14:44:17 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void	init_philo_struct(t_data *data, t_philo *philo)
 		philo[i].my_death = 0;
 		philo[i].name = i + 1;
 		philo[i].data = data;
-		philo[i].last_eat = get_time();
 		pthread_mutex_init(&(philo[i].eat), 0);
 		philo[i].l_fork = &(data->fork[i]);
 		if (i == 0)
