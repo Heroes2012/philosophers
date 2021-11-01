@@ -6,12 +6,19 @@
 /*   By: swang <swang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 17:16:18 by swang             #+#    #+#             */
-/*   Updated: 2021/10/31 15:18:55 by swang            ###   ########.fr       */
+/*   Updated: 2021/10/31 17:22:43 by swang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
+
+# define SLEEP 101
+# define EAT 102
+# define THINK 103
+# define DIE 104
+# define FORK 105
+
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -27,8 +34,7 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				num_of_must_eat;
 	int				*death_check;
-	int				*eat_check;
-	unsigned long	strat_time;
+	unsigned long	start_time;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*fork;
 }	t_data;
@@ -72,5 +78,7 @@ void			ft_free(t_data *data, t_philo *philo);
 void			ft_usleep(unsigned long time);
 unsigned long	get_time(void);
 
+/* print_mutex*/
+void	print_mutex(int flag, t_philo *philo);
 
 #endif
